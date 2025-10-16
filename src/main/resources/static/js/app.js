@@ -265,6 +265,54 @@ var app = (function () {
                 });
         },
 
+        deleteCurrentBlueprint: function () {
+            if (!_currentBlueprintName || !_currentBlueprintPoints) {
+                alert("No hay ningún blueprint abierto para eliminar.");
+                return;
+            }
+
+            if (!confirm("¿Seguro que desea eliminar el blueprint '" + _currentBlueprintName + "'?")) {
+                return;
+            }
+
+            // Limpiar el canvas
+            var canvas = document.getElementById("blueprintCanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Promesa DELETE
+            var deletePromise = new Promise(function (resolve, reject) {
+                api.deleteBlueprint(_author, _currentBlueprintName, function (ok) {
+                    if (ok) resolve();
+                    else reject("Error al eliminar el blueprint");
+                });
+            });
+
+            deletePromise
+                .then(function () {
+                    return new Promise(function (resolve) {
+                        api.getBlueprintsByAuthor(_author, function (data) {
+                            _blueprints = data.map(function (bp) {
+                                return { name: bp.name, points: bp.points.length };
+                            });
+                            resolve();
+                        });
+                    });
+                })
+                .then(function () {
+                    _currentBlueprintName = null;
+                    _currentBlueprintPoints = null;
+                    $("#currentBlueprint").text("Current blueprint: ");
+                    _renderTable();
+                    alert("Blueprint eliminado correctamente.");
+                })
+                .catch(function (err) {
+                    console.error(err);
+                    alert("No se pudo eliminar el blueprint.");
+                });
+        },
+
+
     };
 
 })();
@@ -281,5 +329,11 @@ $(function () {
     $("#create-blueprint").click(function () {
         app.createNewBlueprint();
     });
+
+    $("#delete-blueprint").click(function () {
+        app.deleteCurrentBlueprint();
+    });
+
 });
+
 
