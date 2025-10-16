@@ -1,6 +1,12 @@
-#### Escuela Colombiana de Ingeniería
-#### Procesos de desarrollo de software - PDSW
-#### Construción de un cliente 'grueso' con un API REST, HTML5, Javascript y CSS3. Parte II.
+## Escuela Colombiana de Ingeniería
+
+## Arquitecturas de software - ARSW
+
+## Integrantes
+- Ricardo Andrés Ayala Garzón [lRicardol](https://github.com/lRicardol)
+- Santiago Amaya Zapata [SantiagoAmaya21](https://github.com/SantiagoAmaya21)
+
+## Construción de un cliente 'grueso' con un API REST, HTML5, Javascript y CSS3. Parte II.
 
 
 

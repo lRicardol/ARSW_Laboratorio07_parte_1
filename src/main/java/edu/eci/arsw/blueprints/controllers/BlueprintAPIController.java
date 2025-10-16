@@ -108,4 +108,18 @@ public class BlueprintAPIController {
         }
     }
 
+    @DeleteMapping("/{author}/{bpname}")
+    public ResponseEntity<?> deleteBlueprint(
+            @PathVariable String author,
+            @PathVariable String bpname) {
+        try {
+            blueprintServices.deleteBlueprint(author, bpname);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (BlueprintNotFoundException ex) {
+            return new ResponseEntity<>("Blueprint no encontrado", HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Error al eliminar el blueprint", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

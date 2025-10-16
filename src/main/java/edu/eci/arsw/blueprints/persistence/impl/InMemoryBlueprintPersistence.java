@@ -40,6 +40,18 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         Point[] pts3 = new Point[]{new Point(200, 200), new Point(220, 220)};
         Blueprint bp3 = new Blueprint("Maria", "plano3", pts3);
         blueprints.put(new Tuple<>(bp3.getAuthor(), bp3.getName()), bp3);
+
+        Point[] housePoints = new Point[]{
+                new Point(100, 300),
+                new Point(200, 300),
+                new Point(200, 200),
+                new Point(150, 150),
+                new Point(100, 200),
+                new Point(100, 300)
+        };
+
+        Blueprint house = new Blueprint("JohnConnor", "house", housePoints);
+        blueprints.put(new Tuple<>(house.getAuthor(), house.getName()), house);
     }    
     
     @Override
@@ -93,5 +105,15 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         Blueprint newBp = new Blueprint(author, bprintname, updatedBp.getPoints().toArray(new Point[0]));
         blueprints.put(key, newBp);
     }
+
+    @Override
+    public void deleteBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
+        Tuple<String, String> key = new Tuple<>(author, bprintname);
+        if (!blueprints.containsKey(key)) {
+            throw new BlueprintNotFoundException("No existe el plano para eliminar: " + author + "/" + bprintname);
+        }
+        blueprints.remove(key);
+    }
+
 
 }
