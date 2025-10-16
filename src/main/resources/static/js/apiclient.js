@@ -52,6 +52,20 @@ var apiclient = (function () {
                 console.error("Error creando plano:", textStatus, errorThrown);
                 callback(false);
             });
+        },
+
+        deleteBlueprint: function (author, blueprintName, callback) {
+            $.ajax({
+                url: apiUrl + "/" + author + "/" + blueprintName,
+                type: 'DELETE'
+            })
+            .done(function () {
+                callback(true);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error eliminando plano:", textStatus, errorThrown);
+                callback(false);
+            });
         }
 
     };

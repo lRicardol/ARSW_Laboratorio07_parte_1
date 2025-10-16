@@ -73,4 +73,9 @@ public class BlueprintsServices {
         bpp.updateBlueprint(author, name, updatedBp);
     }
 
+    public void deleteBlueprint(String author, String name) throws BlueprintNotFoundException {
+        bpp.deleteBlueprint(author, name);
+    }
+
+
 }
